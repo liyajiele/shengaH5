@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>加盟省啊，别人消费，你赚钱！</title>
+	</head>
+	<link rel="stylesheet" href="index.css" />
+	<script src="function.js"></script>
+	<script src="jquery.min.js"></script>
+	<script type="text/javascript">
+    	$(function(){
+		    var clienW=document.documentElement.clientWidth;
+		    var originW=750;//设计尺寸
+		    var bili=clienW/originW*100+"px";
+		    document.querySelector("html").style.fontSize=bili;
+		})
+    </script>
+    <style>
+    	.bigbox{
+    		height: auto;
+    		width: 100%;
+    	}
+    	.imgbox{
+    		height: auto;
+    		width: 100%;
+    	}
+    	.imgbox img{
+    		width: 100%;
+    	}
+    	.jia{
+    		width: 100%;
+		    height: 5rem;
+		    /*background: pink;*/
+    	}
+    	.jia h1{
+    		width: 100%;
+		    color: #1c82d4;
+		    text-align: center;
+		    font-size: 50px;
+    	}
+    	.jia p{
+		    width: 100%;
+		    text-align: center;
+		    font-size: 24px;
+		    margin-top: 0.1rem;
+    	}
+    	.inputbox{
+    		width: 7rem;
+		    margin: 0 auto;
+		    /*background: red;*/
+		    height: 1rem;
+		    margin-top: 0.1rem;
+    	}
+    	.inputbox h2{
+    		font-size: 28px;
+    	}
+    	.inputbox h2 span{
+    		color: #1C82D4;
+    	}
+    	.inputbox input{
+    		float: left;
+		    width: 90%;
+		    height: 0.6rem;
+		    border: 1px solid #ccc;
+		    font-size: 25px;
+		    margin: 0 auto;
+		    margin-top: 0.1rem;
+		    margin-left: 0.35rem;
+    	}
+    	input:focus{
+    		outline: none;
+    	}
+    	.btnbox{
+    		width: 7rem;
+		    margin: 0 auto;
+		    height: 0.8rem;
+		    background: #1C82D4;
+		    color: #fff;
+		    text-align: center;
+		    line-height: 0.8rem;
+		    font-size: 0.3rem;
+		    border-radius: 0.1rem;
+		    margin-top: 0.1rem;
+    	}
+       p span{
+	       	color: red;
+		    margin-left: 0.1rem;
+		    margin-right: 0.1rem;
+       }
+    </style>
+	<body>
+		<div class="bigbox">
+			<div class="imgbox">
+				<img src="1.png" alt="" />
+			</div>
+			<div class="imgbox">
+				<img src="2.png" alt="" />
+			</div>
+			<div class="imgbox">
+				<img src="3.png" alt="" />
+			</div>
+			<div class="imgbox">
+				<img src="4.png" alt="" />
+			</div>
+			<div class="imgbox">
+				<img src="5.png" alt="" />
+			</div>
+			<div class="imgbox">
+				<img src="6.png" alt="" />
+			</div>
+			<div class="imgbox">
+				<img src="7.png" alt="" />
+			</div>
+			<div class="imgbox">
+				<img src="8.png" alt="" />
+			</div>
+			<div class="jia">
+				<h1>加盟代理</h1>
+				<p>如果您有意向，输入您的联系方式，我们竭诚为您服务</p>
+				<div class="inputbox">
+					<h2>姓名 <span>*</span></h2>
+					<input id="realname" type="text" value=""/>
+				</div>
+				<div class="inputbox">
+					<h2>电话 <span>*</span></h2>
+					<input id="mobile" type="text" value=""/>
+				</div>
+				<div class="btnbox">立即提交</div>
+				<!--<p>————————目前已有<span id="bmnums"></span>人报名——————————</p>-->
+			</div>
+		</div>
+	</body>
+</html>
+<script>
+	$(document).ready(function(){
+	  $(".btnbox").click(function(){
+	  	var realname = $("#realname").val();
+		var mobile = $("#mobile").val();
+	    $.ajax({
+	        type:"post",
+	        url:"http://api.51shenga.com/api/common/baoMing",
+	        data:{
+	        	realname:realname,
+	        	mobile:mobile,
+	        	qudao:2,
+	        },
+	        dataType:"text",
+	        success:function(data){
+	            alert("报名成功，工作人员稍后主动了联系您！祝您生活愉快！");
+	        },
+	    });
+	  });
+	   
+    $.post("http://api.51shenga.com/api/common/getAllBaoMingInfos",{},function(resp){
+    	$("#bmnums").text(resp.object.totalElements);
+    });
+	  
+	});
+	  
+</script>
